@@ -55,6 +55,7 @@ class Parse {
   User user() {
     return _user = new User(client);
   }
+
   LiveQuery liveQuery() {
     return _liveQuery = new LiveQuery(client);
   }

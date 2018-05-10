@@ -3,6 +3,7 @@ import 'dart:async';
 
 import 'parse_base.dart';
 import 'parse_http_client.dart';
+import 'parse_query.dart';
 
 class User implements ParseBaseObject {
   final String className = '_User';
@@ -28,7 +29,7 @@ class User implements ParseBaseObject {
   Future<dynamic> get(attribute) async {
     final response = this.client.get(client.baseURL + "${path}/${objectId}");
     return response.then((value){
-      objectData = JSON.decode(value.body);
+      objectData = json.decode(value.body);
       return objectData[attribute];
     });
   }
@@ -41,13 +42,13 @@ class User implements ParseBaseObject {
         }
     );
     return response.then((value){
-      objectData = JSON.decode(value.body);
+      objectData = json.decode(value.body);
       return objectData[attribute];
     });
   }
 
   Map<String, dynamic> _handleResponse(String response){
-    Map<String, dynamic> responseData = JSON.decode(response);
+    Map<String, dynamic> responseData = json.decode(response);
     if (responseData.containsKey('objectId')) {
       objectData = responseData;
       this.client.credentials.sessionId = sessionId;
@@ -73,7 +74,7 @@ class User implements ParseBaseObject {
         headers: {
           'X-Parse-Revocable-Session': "1",
         },
-        body: JSON.encode(objectData));
+        body: json.encode(objectData));
     return response.then((value){
       _handleResponse(value.body);
       return objectData;
@@ -98,10 +99,18 @@ class User implements ParseBaseObject {
     });
   }
 
+  Future<List<dynamic>> fetchUsers(String username) async {
+
+    var query = new Query(className, client);
+    query.whereEqualTo("username", username);
+
+    return null;
+  }
+
   Future<Map<String, dynamic>> verificationEmailRequest() async {
     final response = this.client.post(
         "${client.baseURL}/parse/verificationEmailRequest",
-        body: JSON.encode({"email": objectData['email']})
+        body: json.encode({"email": objectData['email']})
     );
     return response.then((value){
       return _handleResponse(value.body);
@@ -111,7 +120,7 @@ class User implements ParseBaseObject {
   Future<Map<String, dynamic>> requestPasswordReset() async {
     final response = this.client.post(
         "${client.baseURL}/parse/requestPasswordReset",
-        body: JSON.encode({"email": objectData['email']})
+        body: json.encode({"email": objectData['email']})
     );
     return response.then((value){
       return _handleResponse(value.body);
@@ -125,7 +134,7 @@ class User implements ParseBaseObject {
     }
     else {
       final response = this.client.put(
-          client.baseURL + "${path}/${objectId}",  body: JSON.encode(objectData));
+          client.baseURL + "${path}/${objectId}",  body: json.encode(objectData));
       return response.then((value) {
         return _handleResponse(value.body);
       });

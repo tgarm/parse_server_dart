@@ -13,6 +13,7 @@ class ParseObject implements ParseBaseObject {
   Map<String, dynamic> objectData = {};
 
   String get objectId => objectData['objectId'];
+
   ParseObject(String this.className, [ParseHTTPClient this.client]) {
     path = "/parse/classes/${className}";
   }
@@ -20,19 +21,27 @@ class ParseObject implements ParseBaseObject {
   Future<Map> create([Map<String, dynamic> objectInitialData]) async {
     objectData = {}..addAll(objectData)..addAll(objectInitialData);
 
-    final response = this.client.post("${client.baseURL}${path}", body: JSON.encode(objectData));
+    final response = this.client.post("${client.baseURL}${path}", body: json.encode(objectData));
     return response.then((value){
-      objectData = JSON.decode(value.body);
+      objectData = json.decode(value.body);
       return objectData;
     });
   }
 
-  Future<dynamic> get(attribute) async {
+  Future<dynamic> fetch(String objectId) async {
       final response = this.client.get(client.baseURL + "${path}/${objectId}");
       return response.then((value){
-        objectData = JSON.decode(value.body);
-        return objectData[attribute];
+        objectData = json.decode(value.body);
+        return objectData;
       });
+  }
+
+  dynamic get(attribute) async {
+    if (objectData.containsKey(attribute)) {
+     return objectData[attribute];
+    }
+
+    return null;
   }
 
   void set(String attribute, dynamic value){
@@ -46,9 +55,9 @@ class ParseObject implements ParseBaseObject {
     }
     else {
       final response = this.client.put(
-          client.baseURL + "${path}/${objectId}",  body: JSON.encode(objectData));
+          client.baseURL + "${path}/${objectId}",  body: json.encode(objectData));
       return response.then((value) {
-        objectData = JSON.decode(value.body);
+        objectData = json.decode(value.body);
         return objectData;
       });
     }
@@ -57,7 +66,7 @@ class ParseObject implements ParseBaseObject {
   Future<String> destroy(){
     final response = this.client.delete(client.baseURL + "${path}/${objectId}");
     return response.then((value){
-      return JSON.decode(value.body);
+      return json.decode(value.body);
     });
   }
 }

@@ -2,50 +2,42 @@ import 'dart:async';
 
 import 'parse_base.dart';
 import 'parse_http_client.dart';
+import 'parse_query_state.dart';
+import 'parse_query_constants.dart';
+
 
 class Query implements ParseBaseObject {
   String className;
   final ParseHTTPClient client;
   String path;
-  Map results;
-  Map constraint;
+  List<dynamic> results;
+
 
   String get objectId => null;
   Map<String, dynamic> objectData = {};
-  Query(String className, ParseHTTPClient client)
-       : client = client;
+  final QueryState _state;
 
-  void equalTo (String key, dynamic value ) {
-
+  Query(String this.className, [ParseHTTPClient this.client]) : _state = QueryState(className) {
+    path = "/parse/classes/${className}";
   }
 
-  void notEqualTo(String key, dynamic value) {
-
+  Query whereCondition(String condition, String key, dynamic value) {
+    // check if command is running
+    _state.setConditionType(condition, value, key);
+    return null;
   }
 
-  void limit(int limit) {
-
+  Query whereEqualTo(String key, dynamic value) {
+    _state.setEqualityCondition(key, value);
+    return this;
   }
 
-  void skip(int limit) {
-
+  Query whereGreaterThan(String key, dynamic value) {
+    return whereCondition(QueryConstants.PFQueryKeyGreaterThan, key, value);
   }
 
-  void ascending(String attribute) {
-
+  Future<List<dynamic>> findObjectsInBackground() {
+    // TODO
   }
 
-  void descending(String attribute) {
-
-  }
-
-  void startsWith(String key, dynamic value) {
-
-  }
-
-  Future<Map> first() {
-    Map<String, dynamic> t = {};
-    foo() => t;
-    return new Future(foo);
-  }
 }
