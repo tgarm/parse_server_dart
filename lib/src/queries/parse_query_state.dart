@@ -1,8 +1,10 @@
-import 'parse_http_client.dart';
+import 'dart:convert';
+import 'package:parse_server/src/parse_http_client.dart';
+import 'package:json_annotation/json_annotation.dart';
+import 'package:parse_server/src/parse_base.dart';
+import 'package:parse_server/src/queries/parse_query_constants.dart';
 
-import 'parse_base.dart';
-import 'parse_query_constants.dart';
-
+@JsonSerializable(nullable: false)
 class QueryState implements ParseBaseObject {
 
   String className;
@@ -20,14 +22,11 @@ class QueryState implements ParseBaseObject {
   }
 
   void setConditionType(String conditionType, dynamic value, String key) {
-    var condition = null;
+    var condition;
 
-    var val = _conditions[key];
-    if (val != null) {
-      condition = val;
-    }
-
-    if (condition == null) {
+    if (_conditions[key] != null) {
+      condition = _conditions[key];
+    }else {
       condition = {};
     }
 
@@ -47,5 +46,14 @@ class QueryState implements ParseBaseObject {
     
     setEqualityCondition(QueryConstants.PFQueryKeyRelatedTo, condition);
   }
+
+/*  fromJson(Map<String, dynamic> json) {
+    this._conditions = json.decode(json);
+  }
   
+  Map<String, dynamic> toJson() => json.encode(_conditions);
+
+  String toString() {
+    return toJson().toString();
+  }*/
 }

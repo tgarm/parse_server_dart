@@ -1,19 +1,8 @@
-import 'parse_object.dart';
-import 'parse_user.dart';
-import 'parse_livequery.dart';
-import 'parse_http_client.dart';
-
-class Credentials {
-  final String applicationId;
-  final String masterKey;
-  String sessionId;
-
-  Credentials(this.applicationId, [this.masterKey]);
-
-  @override
-  String toString() => "${applicationId}";
-
-}
+import 'package:parse_server/src/parse_object.dart';
+import 'package:parse_server/src/parse_user.dart';
+import 'package:parse_server/src/parse_livequery.dart';
+import 'package:parse_server/src/parse_http_client.dart';
+import 'package:parse_server/src/credentials.dart';
 
 abstract class ParseBaseObject {
   final String className;
@@ -27,7 +16,6 @@ abstract class ParseBaseObject {
 
   ParseBaseObject(String this.className, [ParseHTTPClient this.client]);
 }
-
 
 class Parse {
   Credentials credentials;

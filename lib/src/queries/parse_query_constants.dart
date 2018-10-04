@@ -31,6 +31,9 @@ class QueryConstants {
   static const String PFQueryOptionKeyPoint = "\$point";
   static const String PFQueryOptionKeySearch = "\$search";
   static const String PFQueryOptionKeyTerm = "\$term";
+  static const String PFQueryOptionKeyLanguage = "\$language";
+  static const String PFQueryOptionKeyCaseSensitive = "\$caseSensitive";
+  static const String PFQueryOptionKeyDiacriticSensitive = "\$diacriticSensitive";
   static const String PFQueryOptionKeyRegexOptions = "\$options";
 
 }

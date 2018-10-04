@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
-import 'parse_base.dart';
-import 'parse_http_client.dart';
-import 'parse_query_state.dart';
-import 'parse_query_constants.dart';
+import 'package:parse_server/src/parse_base.dart';
+import 'package:parse_server/src/parse_http_client.dart';
+import 'package:parse_server/src/queries/parse_query_state.dart';
+import 'package:parse_server/src/queries/parse_query_constants.dart';
 
 
 class Query implements ParseBaseObject {
@@ -11,24 +11,24 @@ class Query implements ParseBaseObject {
   final ParseHTTPClient client;
   String path;
   List<dynamic> results;
-  String _queryString;
+  String queryString;
 
   String get objectId => null;
   Map<String, dynamic> objectData = {};
-  final QueryState _state;
+  QueryState state;
 
-  Query(String this.className, [ParseHTTPClient this.client]) : _state = QueryState(className) {
+  Query(String this.className, [ParseHTTPClient this.client]) : state = QueryState(className) {
     path = "/parse/classes/${className}";
   }
 
   Query whereCondition(String condition, String key, dynamic value) {
     // check if command is running
-    _state.setConditionType(condition, value, key);
+    state.setConditionType(condition, value, key);
     return null;
   }
 
   Query whereEqualTo(String key, dynamic value) {
-    _state.setEqualityCondition(key, value);
+    state.setEqualityCondition(key, value);
     return this;
   }
 
@@ -38,12 +38,5 @@ class Query implements ParseBaseObject {
 
   Future<List<dynamic>> findObjectsInBackground() {
     // TODO
-  }
-  
-  /** WORKAROUND **/
-  get queryString => _queryString;
-
-  set queryString(String q) {
-    _queryString = json.encode(client);
   }
 }
