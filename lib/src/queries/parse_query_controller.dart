@@ -21,19 +21,14 @@ class QueryController {
   QueryController(this.query){
     this.className = query.className;
     this.client = query.client;
-    this.path = "/parse/classes/${className}";
+    this.path = "/classes/${className}";
   }
 
- // QueryController(String this.className, [ParseHTTPClient this.client]) {
- //   this.path = "/parse/classes/${className}";
- // }
   
   Future<dynamic> execute() async {
     /** WORKAROUND **/
     // only where!!
     var url = Uri.parse(client.baseURL + path);
-        //?" + Uri.encodeFull(query.queryString));
-    //var url += Uri.encodeFull(query.queryString);
 
     final response = this.client.get(url);
     return response.then((value) {
@@ -42,21 +37,5 @@ class QueryController {
         return objectData["results"];
       }
     });
-    
-/*    if (query.state != null) {
-      final constraintJson = json.encode(query.state);
-      final where = Uri.encodeFull(constraintJson);
-      var q = 'where=' + where;
-
-      final response = this.client.get(q);
-      return response.then((value) {
-        print(value.body);
-        var objectData = json.decode(value.body);
-        if (objectData.containsKey("results")) {
-          return objectData["results"];
-        }
-      });
-    }*/
-    return null;
   }
 }

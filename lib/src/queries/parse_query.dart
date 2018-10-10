@@ -18,7 +18,7 @@ class Query implements ParseBaseObject {
   QueryState state;
 
   Query(String this.className, [ParseHTTPClient this.client]) : state = QueryState(className) {
-    path = "/parse/classes/${className}";
+    path = "/classes/${className}";
   }
 
   Query whereCondition(String condition, String key, dynamic value) {
@@ -36,7 +36,12 @@ class Query implements ParseBaseObject {
     return whereCondition(QueryConstants.PFQueryKeyGreaterThan, key, value);
   }
 
-  Future<List<dynamic>> findObjectsInBackground() {
-    // TODO
+  Future<List<dynamic>> findObjects() {
+    var resp = client.get("${client.baseURL}${path}");
+    return resp.then((value){
+      var res = json.decode(value.body);
+      List list = res['results'];
+      return list;
+    });
   }
 }

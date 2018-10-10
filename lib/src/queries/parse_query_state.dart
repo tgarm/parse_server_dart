@@ -17,7 +17,7 @@ class QueryState implements ParseBaseObject {
   Map _conditions;
 
   QueryState(String this.className, [ParseHTTPClient this.client]) {
-    path = "/parse/classes/${className}";
+    path = "/classes/${className}";
     _conditions = {};
   }
 
