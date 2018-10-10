@@ -13,7 +13,7 @@ class ParseObject implements ParseBaseObject {
   String get objectId => objectData['objectId'];
 
   ParseObject(String this.className, [ParseHTTPClient this.client]) {
-    path = "/parse/classes/${className}";
+    path = "/classes/${className}";    
   }
 
   void _resetObject() {
@@ -97,7 +97,7 @@ class ParseObject implements ParseBaseObject {
   // update current object
   Future<Map<String, dynamic>> update(Map<String, dynamic> entries) async {
     print(entries);
-    if (entries.isEmpty) return;
+    if (entries.isEmpty) return {};
 
     final response = this.client.put(
         "${client.baseURL}${path}/${objectId}",

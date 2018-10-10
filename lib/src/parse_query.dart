@@ -18,7 +18,7 @@ class Query implements ParseBaseObject {
   final QueryState _state;
 
   Query(String this.className, [ParseHTTPClient this.client]) : _state = QueryState(className) {
-    path = "/parse/classes/${className}";
+    path = "/classes/${className}";
   }
 
   Query whereCondition(String condition, String key, dynamic value) {

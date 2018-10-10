@@ -29,7 +29,7 @@ class User implements ParseBaseObject {
   }
 
   Future<dynamic> get(attribute) async {
-    final response = this.client.get(client.baseURL + "/parse/users/${objectId}",
+    final response = this.client.get(client.baseURL + "/users/${objectId}",
         headers: {"X-Parse-Session-Token": sessionId} );
     return response.then((value) {
       objectData = json.decode(value.body);
@@ -38,7 +38,7 @@ class User implements ParseBaseObject {
   }
 
   Future<dynamic> me() async {
-    final response = this.client.get(client.baseURL + "/parse/users/me",
+    final response = this.client.get(client.baseURL + "/users/me",
         headers: {"X-Parse-Session-Token": sessionId});
     return response.then((value) {
       _handleResponse(value.body);
@@ -68,7 +68,7 @@ class User implements ParseBaseObject {
     }
     _resetObjectId();
 
-    Uri url = Uri.parse("${client.baseURL}/parse/users");
+    Uri url = Uri.parse("${client.baseURL}/users");
 
     final response = this.client.post(
         url,
@@ -88,7 +88,7 @@ class User implements ParseBaseObject {
   }
 
   Future<Map<String, dynamic>> login() async {
-    Uri url = Uri.parse("${client.baseURL}/parse/login?" +
+    Uri url = Uri.parse("${client.baseURL}/login?" +
         "username=" + objectData['username'] +
         "&password=" + objectData['password']
     );
@@ -115,7 +115,7 @@ class User implements ParseBaseObject {
 
   Future<Map<String, dynamic>> verificationEmailRequest() async {
     final response = this.client.post(
-        "${client.baseURL}/parse/verificationEmailRequest",
+        "${client.baseURL}/verificationEmailRequest",
         body: json.encode({"email": objectData['email']}));
     return response.then((value) {
       return _handleResponse(value.body);
@@ -124,7 +124,7 @@ class User implements ParseBaseObject {
 
   Future<Map<String, dynamic>> requestPasswordReset() async {
     final response = this.client.post(
-        "${client.baseURL}/parse/requestPasswordReset",
+        "${client.baseURL}/requestPasswordReset",
         body: json.encode({"email": objectData['email']}));
 
     return response.then((value) {
@@ -137,7 +137,7 @@ class User implements ParseBaseObject {
     if (objectId == null) {
       return signUp(objectData);
     } else {
-      final response = this.client.put(client.baseURL + "/parse/users/${objectId}",
+      final response = this.client.put(client.baseURL + "/users/${objectId}",
           body: json.encode(objectData));
       return response.then((value) {
         return _handleResponse(value.body);
@@ -155,7 +155,7 @@ class User implements ParseBaseObject {
   }
 
   Future<Map<String, dynamic>> all() {
-    final response = this.client.get(client.baseURL + "/parse/users");
+    final response = this.client.get(client.baseURL + "/users");
     return response.then((value) {
       return _handleResponse(value.body);
     });
@@ -164,10 +164,10 @@ class User implements ParseBaseObject {
   // update current user
   Future<Map<String, dynamic>> update(Map<String, dynamic> entries) async {
     print(entries);
-    if (entries.isEmpty) return;
+    if (entries.isEmpty) return {};
 
     final response = this.client.put(
-        "${client.baseURL}/parse/users/" + objectId,
+        "${client.baseURL}/users/" + objectId,
         headers: {"X-Parse-Session-Token": sessionId},
         body: json.encode(entries));
 

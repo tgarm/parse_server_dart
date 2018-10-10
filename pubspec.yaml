@@ -11,4 +11,5 @@ dependencies:
   path: ^1.4.1
   web_socket_channel: ^1.0.6
   http: ^0.11.3
+  json_annotation: ^1.2.0
 

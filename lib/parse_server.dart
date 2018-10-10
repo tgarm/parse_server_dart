@@ -8,5 +8,6 @@ export 'src/parse_livequery.dart';
 export 'src/parse_object.dart';
 export 'src/queries/parse_query.dart';
 export 'src/parse_user.dart';
+export 'src/credentials.dart';
 
 // TODO: Export any libraries intended for clients of this package.
