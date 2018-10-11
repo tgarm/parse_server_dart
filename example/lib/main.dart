@@ -1,9 +1,36 @@
 import 'package:flutter/material.dart';
-import 'dart:convert';
+import 'dart:math';
 import 'package:parse_server/parse_server.dart';
 import 'const.dart';
 
 void main() => runApp(new MyApp());
+
+var rndSeed = new Random();
+
+String randomWord(){
+  const wordList = ['now','is','come','time','for','all','good','this','Jack','not'];
+  return wordList[rndSeed.nextInt(wordList.length-1)];
+}
+
+String randomString(int wordCount){
+  var res = [];
+  for(int i=0;i<wordCount;i++){
+    res.add(randomWord());
+  }
+  var r = res.join(' ');
+  var num = rndSeed.nextInt(100);
+  return "$r $num";
+}
+
+void addObject() {
+    var article = parse.object("Article");
+    article.set('name',randomString(2));
+    article.set('keyword',randomString(3));  
+    article.set('desc',randomString(5));
+    article.set('content',randomString(10));
+    article.save();
+}
+
 
 Parse parse = new Parse(new Credentials(Const.PARSE_APPID), Const.PARSE_SERVER_URL);
 
@@ -28,15 +55,6 @@ class ParseList extends StatefulWidget {
 class ParseListState extends State<ParseList>{
   List objList = [];
 
-  void addObject() {
-      var article = parse.object("Article");
-      article.set('name','Canon');
-      article.set('keyword','canon,pachabel,piano');  
-      article.set('desc','Pachabel D version of Canon');
-      article.set('content','iiii ooo');
-      article.save();
-  }
-
   Future<List> getObjects() async{
     var q = parse.query("Article");
     return  q.findObjects();
@@ -44,14 +62,41 @@ class ParseListState extends State<ParseList>{
 
   loadObjects(){
     getObjects().then((list){
-      print("reload");
       setState((){
         objList = list;
       });
     });
   }
 
+  signUp(){
+    var name = randomWord();
+    var password = 'nopass';
+    parse.user().signUp({
+      'username':name,
+      'password':password
+    }).then((res){
+      print("signup done as: $name");
+      print("res: $res");
+    });
+  }
+
+  login(){
+    parse.user().queryAll().then((users){
+      for (var user in users) {
+        var name = user['username'];
+        print("user: $name");
+      }
+      parse.user().set('username',users[0]['username']);
+      parse.user().set('password','nopass');
+      parse.user().login().then((res){
+        print("login as first user: $res");
+      });
+    });
+  }
+
+
   @override Widget build(BuildContext context){
+    login();
     return new Scaffold(
       appBar: new AppBar(
         title:new Text('Parse Demo App'),
@@ -65,6 +110,11 @@ class ParseListState extends State<ParseList>{
             icon: new Icon(Icons.refresh),
             tooltip: 'Reload',
             onPressed: ()=>loadObjects(),
+          ),
+          new IconButton(
+            icon: new Icon(Icons.verified_user),
+            tooltip: 'Sign-up new User',
+            onPressed: ()=>signUp()
           )
         ]
       ),

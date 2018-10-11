@@ -21,11 +21,12 @@ class User implements ParseBaseObject {
   String get userId => objectData['objectId'];
 
   User([ParseHTTPClient client])
-      : path = "/parse/classes/_User",
+      : path = "/classes/_User",
         client = client;
 
   void set(String attribute, dynamic value) {
     objectData[attribute] = value;
+    print("od=$objectData");
   }
 
   Future<dynamic> get(attribute) async {
@@ -106,11 +107,13 @@ class User implements ParseBaseObject {
     });
   }
 
-  Future<List<dynamic>> fetchUsers(String username) async {
-    var query = new Query(className, client);
-    query.whereEqualTo("username", username);
-
-    return null;
+  Future<List<dynamic>> queryAll() async {
+    var resp = client.get("${client.baseURL}/users");
+    return resp.then((value){
+      var res = json.decode(value.body);
+      List list = res['results'];
+      return list;
+    });
   }
 
   Future<Map<String, dynamic>> verificationEmailRequest() async {

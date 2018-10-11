@@ -2,24 +2,24 @@
 
 A Parse Server library for Dart developers.
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
-
-
+The original one seems not working and abandoned. 
 
 ## Usage
-This is still WIP, API might change
+These seems work, still needs test and tweak
 
-- User Authentication works
-- No query builder yet
-- LiveQuery websocket works
-- Parse Object works
+- Users
+  - signUp
+  - login
+  - user query
+- Basic Query
+  - query all
+- Objects
+  - creation
 
 ### TODO:
 
-- Documentation
-- Query builder
-- ...
+- A lot ......
 
 
 A simple usage example can be found in the 'example' directory
+

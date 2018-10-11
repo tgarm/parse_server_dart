@@ -41,8 +41,19 @@ class Parse {
     return _parseObject = new ParseObject(objectName, client);
   }
 
-  User user() {
-    return _user = new User(client);
+  User user([bool newUser]) {
+    if (newUser==true){
+      var u = new User(client);
+      if (_user==null){
+        _user = u;
+      }
+      return u;
+    }else{
+      if (_user==null){
+        _user = new User(client);
+      }
+      return _user;
+    }
   }
 
   Query query(objectName){
