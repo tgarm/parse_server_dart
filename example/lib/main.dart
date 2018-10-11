@@ -28,6 +28,7 @@ void addObject() {
     article.set('keyword',randomString(3));  
     article.set('desc',randomString(5));
     article.set('content',randomString(10));
+    article.set('author',parse.user());
     article.save();
 }
 

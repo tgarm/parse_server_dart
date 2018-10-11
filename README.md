@@ -17,7 +17,6 @@ These seems work, still needs test and tweak
   - creation
 
 
-
 A simple usage example can be found in the 'example' directory with almost all working functions.
 
 

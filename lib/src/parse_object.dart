@@ -16,6 +16,14 @@ class ParseObject implements ParseBaseObject {
     path = "/classes/${className}";    
   }
 
+  Map<String,dynamic> toJson(){
+    Map<String,dynamic> json = {};
+    json['__type'] = 'Pointer';
+    json['className'] = className;
+    json['objectId'] = objectId;
+    return json;
+  }
+
   void _resetObject() {
     if (objectData.isNotEmpty) {
       objectData.clear();

@@ -18,6 +18,14 @@ class User implements ParseBaseObject {
 
   String get userId => objectData['objectId'];
 
+  Map<String,dynamic> toJson(){
+    Map<String,dynamic> json = {};
+    json['__type'] = 'Pointer';
+    json['className'] = className;
+    json['objectId'] = objectId;
+    return json;
+  }
+
   User([ParseHTTPClient client])
       : path = "/classes/_User",
         client = client;
