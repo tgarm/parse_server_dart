@@ -1,8 +1,7 @@
-import 'dart:convert';
-import 'package:parse_server/src/parse_http_client.dart';
+import 'package:parse_server_dart/src/parse_http_client.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:parse_server/src/parse_base.dart';
-import 'package:parse_server/src/queries/parse_query_constants.dart';
+import 'package:parse_server_dart/src/parse_base.dart';
+import 'package:parse_server_dart/src/queries/parse_query_constants.dart';
 
 @JsonSerializable(nullable: false)
 class QueryState implements ParseBaseObject {

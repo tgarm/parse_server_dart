@@ -21,7 +21,7 @@ dependencies:
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
-  parse_server:
+  parse_server_dart:
     path: ../
 
 # For information on the generic Dart part of this file, see the

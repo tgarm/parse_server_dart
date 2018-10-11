@@ -1,9 +1,7 @@
 import 'dart:convert';
 import 'dart:async';
-import 'package:parse_server/src/parse_base.dart';
-import 'package:parse_server/src/parse_http_client.dart';
-import 'package:parse_server/src/queries/parse_query.dart';
-import 'package:parse_server/src/credentials.dart';
+import 'package:parse_server_dart/src/parse_base.dart';
+import 'package:parse_server_dart/src/parse_http_client.dart';
 
 class User implements ParseBaseObject {
   final String className = '_User';

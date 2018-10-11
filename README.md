@@ -16,10 +16,15 @@ These seems work, still needs test and tweak
 - Objects
   - creation
 
+
+
+A simple usage example can be found in the 'example' directory with almost all working functions.
+
+
+
 ### TODO:
 
 - A lot ......
 
 
-A simple usage example can be found in the 'example' directory
 

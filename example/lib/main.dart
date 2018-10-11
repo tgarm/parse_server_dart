@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:math';
-import 'package:parse_server/parse_server.dart';
+import 'package:parse_server_dart/parse_server_dart.dart';
 import 'const.dart';
 
 void main() => runApp(new MyApp());

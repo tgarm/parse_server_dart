@@ -1,9 +1,9 @@
-import 'package:parse_server/src/parse_object.dart';
-import 'package:parse_server/src/parse_user.dart';
-import 'package:parse_server/src/parse_livequery.dart';
-import 'package:parse_server/src/parse_http_client.dart';
-import 'package:parse_server/src/credentials.dart';
-import 'package:parse_server/src/queries/parse_query.dart';
+import 'package:parse_server_dart/src/parse_object.dart';
+import 'package:parse_server_dart/src/parse_user.dart';
+import 'package:parse_server_dart/src/parse_livequery.dart';
+import 'package:parse_server_dart/src/parse_http_client.dart';
+import 'package:parse_server_dart/src/credentials.dart';
+import 'package:parse_server_dart/src/queries/parse_query.dart';
 
 abstract class ParseBaseObject {
   final String className;
